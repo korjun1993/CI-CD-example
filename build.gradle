@@ -1,5 +1,29 @@
 plugins {
     id 'java'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion '0.8.8'
+}
+
+jacocoTestReport {
+    dependsOn test
+    finalizedBy 'jacocoTestCoverageVerification'
+    afterEvaluate {
+        classDirectories.setFrom(
+                files(classDirectories.files.collect {
+                    fileTree(dir: it, excludes: [
+                            '**/*Application',
+                            '**/*Exception',
+                            '**/dto/**'
+                    ])
+                })
+        )
+    }
+    reports {
+        csv.required = false
+    }
 }
 
 group 'org.example'
@@ -14,6 +38,21 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element 'CLASS'
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.8
+            }
+            excludes = ['*.*Application', '*.*Exception', '*.dto.*']
+        }
+    }
+}
+
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
