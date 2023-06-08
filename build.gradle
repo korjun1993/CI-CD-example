@@ -22,7 +22,7 @@ jacocoTestReport {
         )
     }
     reports {
-        csv.required = false
+        xml.required = true
     }
 }
 
