@@ -4,6 +4,12 @@ plugins {
     id 'org.sonarqube' version '3.5.0.2730'
 }
 
+sonarqube {
+    properties {
+        property "sonar.projectKey", "korjun1993_CI-CD-example_AYifVs5pIc5a-c-v3rnx"
+    }
+}
+
 jacoco {
     toolVersion '0.8.8'
 }
