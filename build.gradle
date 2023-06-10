@@ -7,7 +7,6 @@ plugins {
 sonarqube {
     properties {
         property "sonar.projectKey", "korjun1993_CI-CD-example_AYifVs5pIc5a-c-v3rnx"
-        property "sonar.qualitygate.wait" "true"
     }
 }
 
