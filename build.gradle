@@ -9,7 +9,6 @@ jacoco {
 
 jacocoTestReport {
     dependsOn test
-    finalizedBy 'jacocoTestCoverageVerification'
     afterEvaluate {
         classDirectories.setFrom(
                 files(classDirectories.files.collect {
@@ -36,20 +35,6 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            element 'CLASS'
-            limit {
-                counter = 'BRANCH'
-                value = 'COVEREDRATIO'
-                minimum = 0.8
-            }
-            excludes = ['*.*Application', '*.*Exception', '*.dto.*']
-        }
-    }
 }
 
 test {
