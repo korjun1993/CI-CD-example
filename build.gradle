@@ -1,6 +1,13 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'org.sonarqube' version '3.5.0.2730'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "korjun1993_CI-CD-example_AYifVs5pIc5a-c-v3rnx"
+    }
 }
 
 jacoco {
@@ -21,7 +28,7 @@ jacocoTestReport {
         )
     }
     reports {
-        csv.required = false
+        xml.required = true
     }
 }
 
