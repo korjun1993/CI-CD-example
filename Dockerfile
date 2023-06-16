@@ -1,8 +1,8 @@
 # 글로벌 변수 선언
 ARG JAR_FILE=build/libs/*.jar
 
-# jdk17 이미지를 상속
-FROM adoptopenjdk/openjdk17
+# openjdk 17 이미지를 상속
+FROM openjdk:17
 
 # jar파일을 app.jar로 복사
 COPY ${JAR_FILE_PATH} app.jar
