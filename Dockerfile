@@ -1,5 +1,5 @@
 # 글로벌 변수 선언
-ARG JEKINS_WORKSPACE = /var/lib/jenkins/workspace/cicd-example-deploy
+ARG JEKINS_WORKSPACE=/var/lib/jenkins/workspace/cicd-example-deploy
 ARG JAR_FILE_PATH=build/libs/*.jar
 
 # openjdk 17 이미지를 상속
