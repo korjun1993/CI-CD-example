@@ -1,5 +1,5 @@
 # 글로벌 변수 선언
-ARG JAR_FILE=build/libs/*.jar
+ARG JAR_FILE_PATH=build/libs/*.jar
 
 # openjdk 17 이미지를 상속
 FROM openjdk:17
