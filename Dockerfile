@@ -8,4 +8,4 @@ FROM openjdk:17
 COPY ${JAR_FILE_PATH} app.jar
 
 # 컨테이너가 최종 실행할 명령어 정의: jar 파일 실행
-ENTRYPOINT ["java", "-jar", "./app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
