@@ -1,8 +1,12 @@
 # 글로벌 변수 선언
+ARG JEKINS_WORKSPACE = /var/lib/jenkins/workspace/cicd-example-deploy
 ARG JAR_FILE_PATH=build/libs/*.jar
 
 # openjdk 17 이미지를 상속
 FROM openjdk:17
+
+# 현재 디렉토리 위치
+WORKDIR ${JEKINS_WORKSPACE}
 
 # jar파일을 app.jar로 복사
 COPY ${JAR_FILE_PATH} /app.jar
