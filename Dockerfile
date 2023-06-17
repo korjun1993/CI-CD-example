@@ -5,7 +5,7 @@ ARG JAR_FILE_PATH=/test/var/lib/jenkins/workspace/cicd-example-deploy/build/libs
 FROM openjdk:17
 
 # jar파일을 app.jar로 복사
-COPY /test/var/lib/jenkins/workspace/cicd-example-deploy/build/libs/*.jar /app.jar
+COPY build/libs/*.jar /app.jar
 
 # 컨테이너가 최종 실행할 명령어 정의: jar 파일 실행
 ENTRYPOINT ["java", "-jar", "/app.jar"]
