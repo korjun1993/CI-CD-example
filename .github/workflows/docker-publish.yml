@@ -88,8 +88,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          
+          
       - name: 도커 이미지 이름 및 태그 정보 출력
-        run: echo "이미지명:${{ steps.build-and-push.outputs.image}}, 태그:${{ steps.build-and-push.outputs.tag }}"
+        run: echo "${{ steps.build-and-push.outputs.tag }}"
           
 
 
