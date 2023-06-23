@@ -102,3 +102,17 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
+        
+      # Application Server 로 SSH 원격접속한 후, 컨테이너 실행
+      - name: 애플리케이션 서버 컨테이너 실행
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.APPLICATION_IP }}
+          username: ${{ secrets.APPLICATION_USER_ID }}
+          key: ${{ APPLICATION_SSH_KEY }}
+          port: ${{ APPLICATION_SSH_PORT }}
+          script: |
+            docker rm -f ${{ env.IMAGE_NAME }}
+            docker rmi -f ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            docker pull ${{ steps.meta.outputs.tags }}
+            docker run -d --name ${{ env.IMAGE_NAME }} -p 8080:8080 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
