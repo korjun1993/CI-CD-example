@@ -109,8 +109,8 @@ jobs:
         with:
           host: ${{ secrets.APPLICATION_IP }}
           username: ${{ secrets.APPLICATION_USER_ID }}
-          key: ${{ APPLICATION_SSH_KEY }}
-          port: ${{ APPLICATION_SSH_PORT }}
+          key: ${{ secrets.APPLICATION_SSH_KEY }}
+          port: ${{ secrets.APPLICATION_SSH_PORT }}
           script: |
             docker rm -f ${{ env.IMAGE_NAME }}
             docker rmi -f ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
