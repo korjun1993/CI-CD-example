@@ -109,7 +109,7 @@ jobs:
         with:
           host: ${{ secrets.APPLICATION_IP }}
           username: ${{ secrets.APPLICATION_USER_ID }}
-          key: ${{ secrets.APPLICATION_SSH_KEY }}
+          password: ${{ secrets.APPLICATION_SSH_KEY }}
           port: ${{ secrets.APPLICATION_SSH_PORT }}
           script: |
             docker rm -f ${{ env.IMAGE_NAME }}
