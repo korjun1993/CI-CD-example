@@ -16,6 +16,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: korjun1993/ci-cd-example
+  CONTAINER_NAME: ci-cd-example-app
 
 
 jobs:
@@ -80,20 +81,16 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         id: build-and-push
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        uses: docker/build-push-action@v2
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: | 
+            ${{ steps.meta.outputs.tags }}
+            latest
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          
-          
-      - name: 도커 이미지 이름 및 태그 정보 출력
-        run: echo "${{ steps.build-and-push.outputs.tag }}"
-          
-
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
@@ -117,8 +114,7 @@ jobs:
           password: ${{ secrets.APPLICATION_SSH_KEY }}
           port: ${{ secrets.APPLICATION_SSH_PORT }}
           script: |      
-            docker rm -f ${{ env.IMAGE_NAME }}
+            docker rm -f ${{ env.CONTAINER_NAME }}
             docker rmi -f ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            docker pull ${{ steps.meta.outputs.tags }}
-            docker image tag ${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }} ${{ env.IMAGE_NAME }}:latest
-            docker run -d --name ${{ env.IMAGE_NAME }} -p 8080:8080 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            docker run -d --name ${{ env.CONTAINER_NAME }} -p 8080:8080 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
