@@ -115,6 +115,6 @@ jobs:
           port: ${{ secrets.APPLICATION_SSH_PORT }}
           script: |      
             docker rm -f ${{ env.CONTAINER_NAME }}
-            docker rmi -f ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:verion/latest
-            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:verion/latest
-            docker run -d --name ${{ env.CONTAINER_NAME }} -p 8080:8080 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:verion/latest
+            docker rmi -f ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            docker run -d --name ${{ env.CONTAINER_NAME }} -p 8080:8080 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
